@@ -2,11 +2,156 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8">
-  <title>Moja pierwsza strona w chmurze</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Wizytówka Roberta Tracza: pięć cech chmury obliczeniowej według NIST i wybrany model usług chmurowych.">
+  <meta name="theme-color" content="#07162c">
+  <title>Robert Tracz | Wizytówka w chmurze</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07162c;
+      --panel: #10233e;
+      --line: rgba(164, 210, 255, .17);
+      --text: #f0f7ff;
+      --muted: #b5c6db;
+      --accent: #69d6fa;
+      --accent2: #8d9eff;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(ellipse 70% 42% at 78% 2%, #16456f 0%, transparent 78%),
+                  radial-gradient(ellipse 55% 40% at 7% 55%, #0b2d53 0%, transparent 80%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .container { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 750; letter-spacing: .015em; }
+    .brand-icon { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgba(105, 214, 250, .3); border-radius: 13px; background: #12385a; font-size: 23px; }
+    .group-pill { border: 1px solid var(--line); background: rgba(255,255,255,.055); padding: 8px 14px; border-radius: 999px; color: #dce9f9; font-size: .85rem; white-space: nowrap; }
+    .hero { display: grid; grid-template-columns: 1.35fr .65fr; align-items: center; gap: 28px; padding: 72px 0 81px; }
+    .eyebrow { color: var(--accent); letter-spacing: .19em; text-transform: uppercase; font-size: .76rem; font-weight: 800; margin: 0 0 16px; }
+    h1 { font-size: clamp(2.6rem, 6.5vw, 5.1rem); font-weight: 850; letter-spacing: -.05em; line-height: 1.08; margin: 0 0 20px; }
+    h1 span { color: var(--accent); }
+    .intro { max-width: 620px; color: var(--muted); font-size: 1.13rem; margin: 0 0 32px; }
+    .button { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 12px 20px; border-radius: 12px; border: 1px solid #9ce7fc; background: linear-gradient(120deg, #74dcfa, #b2c6ff); color: #072039; text-decoration: none; font-weight: 800; transition: transform .2s ease, box-shadow .2s ease; }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(67, 182, 240, .19); }
+    a:focus-visible { outline: 3px solid #ffd56d; outline-offset: 4px; }
+    .cloud-visual { position: relative; display: grid; place-items: center; min-height: 290px; isolation: isolate; }
+    .cloud-visual::before { content: ""; position: absolute; width: 270px; height: 270px; border-radius: 50%; border: 1px dashed rgba(105,214,250,.35); box-shadow: 0 0 0 38px rgba(105,214,250,.025), 0 0 0 75px rgba(105,214,250,.018); transform: rotate(-20deg); z-index: -1; }
+    .cloud-icon { display: grid; place-items: center; width: 210px; height: 170px; background: linear-gradient(145deg, rgba(65,151,220,.3), rgba(91,102,202,.12)); box-shadow: 0 15px 60px rgba(37, 147, 240, .14), inset 0 0 40px rgba(112, 210, 250, .08); border: 1px solid rgba(134,211,255,.27); border-radius: 35px; font-size: 88px; }
+    .spark { position: absolute; padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; background: #142f51; color: #d5f7ff; font-size: .8rem; font-weight: 750; }
+    .spark.one { top: 12px; right: 0; } .spark.two { bottom: 20px; left: 0; }
+    .section-head { margin-bottom: 24px; }
+    .section-head h2 { font-size: clamp(1.75rem, 3vw, 2.35rem); line-height: 1.2; letter-spacing: -.035em; margin: 0 0 9px; }
+    .section-head p { margin: 0; color: var(--muted); }
+    .features { padding-bottom: 70px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+    .feature { grid-column: span 2; min-height: 196px; padding: 26px; border: 1px solid var(--line); border-radius: 19px; background: linear-gradient(150deg, rgba(24, 57, 92, .82), rgba(15, 32, 55, .92)); }
+    .feature:nth-child(4) { grid-column: 2 / span 2; } .feature:nth-child(5) { grid-column: 4 / span 2; }
+    .feature-number { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 11px; color: #99ebff; background: rgba(105,214,250,.11); font-weight: 800; font-size: .87rem; margin-bottom: 12px; }
+    .feature h3 { margin: 0 0 7px; font-size: 1.1rem; letter-spacing: -.01em; }
+    .feature p { margin: 0; color: var(--muted); font-size: .95rem; }
+    .model { margin-bottom: 74px; border: 1px solid rgba(141,158,255,.3); border-radius: 22px; background: linear-gradient(110deg, rgba(81,83,160,.26), rgba(17,48,78,.65)); padding: clamp(23px, 4vw, 39px); }
+    .model h2 { font-size: 1.52rem; margin: 0 0 12px; }
+    .model p { font-size: 1.05rem; margin: 0; color: #e2eafd; }
+    .model strong { color: #a6b5ff; }
+    footer { border-top: 1px solid var(--line); padding: 26px 0 33px; color: var(--muted); font-size: .9rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; }
+    footer a { color: #a1e8ff; text-underline-offset: 3px; }
+    @media (max-width: 790px) {
+      .hero { grid-template-columns: 1fr; padding: 48px 0 60px; }
+      .cloud-visual { min-height: 190px; }
+      .cloud-visual::before { width: 185px; height: 185px; }
+      .cloud-icon { width: 150px; height: 130px; font-size: 65px; }
+      .spark.one { right: 13%; } .spark.two { left: 10%; }
+      .feature { grid-column: span 3; } .feature:nth-child(4), .feature:nth-child(5) { grid-column: span 3; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .brand { font-size: .92rem; }
+      .group-pill { font-size: .74rem; padding: 7px 9px; }
+      .hero { padding-top: 32px; }
+      .feature, .feature:nth-child(4), .feature:nth-child(5) { grid-column: span 6; min-height: auto; }
+      .features { padding-bottom: 42px; }
+      .model { margin-bottom: 45px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .button { transition: none; } }
+  </style>
 </head>
-<body style="font-family:sans-serif; max-width:640px; margin:40px auto">
-  <h1>Dzień dobry z chmury ☁️</h1>
-  <p>Tę stronę opublikował(a): (imię), grupa (numer).</p>
-  <p>Nie mam własnego serwera — stronę udostępnia GitHub.</p>
+<body>
+  <header class="container topbar">
+    <a class="brand" href="#start" aria-label="Przejdź do początku strony"><span class="brand-icon" aria-hidden="true">☁</span> Chmura obliczeniowa</a>
+    <span class="group-pill">Grupa 1 · CIM1NP025CI</span>
+  </header>
+
+  <main id="start" class="container">
+    <section class="hero" aria-labelledby="main-title">
+      <div>
+        <p class="eyebrow">Wprowadzenie do przetwarzania w chmurze · Ćwiczenia 1</p>
+        <h1 id="main-title">Robert <span>Tracz</span></h1>
+        <p class="intro">Moja strona-wizytówka przygotowana w ramach ćwiczeń z chmury obliczeniowej. Przedstawiam pięć podstawowych cech chmury według NIST oraz model usług, który najbardziej mnie zainteresował.</p>
+        <a class="button" href="https://github.com/rtracz1/chmura-cwiczenia" target="_blank" rel="noopener noreferrer">Zobacz repozytorium GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="cloud-visual" aria-hidden="true">
+        <span class="spark one">NIST · 5 cech</span>
+        <div class="cloud-icon">☁️</div>
+        <span class="spark two">Google Colab + GitHub</span>
+      </div>
+    </section>
+
+    <section class="features" aria-labelledby="nist-title">
+      <div class="section-head">
+        <p class="eyebrow">Fundamenty chmury</p>
+        <h2 id="nist-title">Pięć cech chmury według NIST</h2>
+        <p>Najważniejsze właściwości usług chmurowych wyjaśnione własnymi słowami.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature">
+          <span class="feature-number">01</span>
+          <h3>Samoobsługa na żądanie</h3>
+          <p>Użytkownik może samodzielnie uruchomić potrzebne zasoby, bez proszenia dostawcy o ich ręczne przygotowanie.</p>
+        </article>
+        <article class="feature">
+          <span class="feature-number">02</span>
+          <h3>Szeroki dostęp sieciowy</h3>
+          <p>Z usług chmurowych można korzystać przez sieć, na przykład z laptopa lub telefonu.</p>
+        </article>
+        <article class="feature">
+          <span class="feature-number">03</span>
+          <h3>Wspólna pula zasobów</h3>
+          <p>Dostawca udostępnia wielu klientom wspólną infrastrukturę, przydzielając każdemu potrzebną część jej mocy.</p>
+        </article>
+        <article class="feature">
+          <span class="feature-number">04</span>
+          <h3>Szybka elastyczność</h3>
+          <p>Zapotrzebowanie na moc obliczeniową można szybko zwiększyć lub zmniejszyć, zależnie od aktualnych potrzeb.</p>
+        </article>
+        <article class="feature">
+          <span class="feature-number">05</span>
+          <h3>Usługa mierzona</h3>
+          <p>System monitoruje wykorzystanie zasobów, dzięki czemu można sprawdzić zużycie i rozliczać usługę według ustalonych zasad.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="model" aria-labelledby="model-title">
+      <p class="eyebrow">Mój wybór</p>
+      <h2 id="model-title">Najciekawszy model usług chmurowych</h2>
+      <p>Najbardziej zainteresował mnie model <strong>PaaS (Platform as a Service)</strong>, ponieważ pozwala tworzyć i uruchamiać aplikacje bez konieczności samodzielnego utrzymywania serwerów oraz systemu operacyjnego.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>Robert Tracz · Grupa 1 CIM1NP025CI</span>
+      <span>Repozytorium: <a href="https://github.com/rtracz1/chmura-cwiczenia" target="_blank" rel="noopener noreferrer">rtracz1/chmura-cwiczenia ↗</a></span>
+    </div>
+  </footer>
 </body>
 </html>
